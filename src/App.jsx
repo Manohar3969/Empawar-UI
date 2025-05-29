@@ -9,6 +9,7 @@ import {Login} from "./pages/Login";
 import {Orders} from "./pages/Orders";
 import {ProductsSearch} from "./pages/ProductsSearch";
 import {Register} from "./pages/Register";
+import {HomePage} from "./pages/HomePage.jsx";
 
 function App() {
     return (
@@ -16,7 +17,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Login/>}/>
-                    <Route path="/home" element={<Orders/>}/>
+                    <Route path="/home" element={<HomePage/>}/>
                     <Route path="/logout" element={<Login/>}/>
                     <Route path="/signup" element={<Register/>}/>
                     <Route path="/signin" element={<Login/>}/>
