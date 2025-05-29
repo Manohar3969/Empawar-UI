@@ -1,4 +1,5 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { DoubleBanner } from "./components/Banner/DoubleBanner";
 import { Footer } from "./components/Footer/Footer";
 import { Header } from "./components/Header/Header";
@@ -10,9 +11,17 @@ import { ProductsSearch } from "./pages/ProductsSearch";
 import { Register } from "./pages/Register";
 
 function App() {
-  return <>
-  <Orders></Orders>
-  </>;
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Orders />} />
+          <Route path="/logout" element={<Login />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
 
 export default App;
