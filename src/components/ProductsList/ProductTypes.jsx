@@ -30,7 +30,7 @@ export const ProductTypes = (props) => {
                 {
                     users.map(user => (
                         <ProductTypeDetails dress={dress1} productName={user.productName}
-                                            productPrice={user.productPrice}></ProductTypeDetails>
+                                            productPrice={user.productPrice} productDescription={user.productDescription}></ProductTypeDetails>
                     ))
                 }
             </div>

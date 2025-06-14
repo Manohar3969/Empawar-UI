@@ -5,12 +5,11 @@ import {DoubleBanner} from "../components/Banner/DoubleBanner.jsx";
 import {ProductTypes} from "../components/ProductsList/ProductTypes.jsx";
 
 export const HomePage = () => {
-  return (
-    <div>
-      <Header></Header>
-      <DoubleBanner></DoubleBanner>
-      <ProductTypes></ProductTypes>
-      <Footer></Footer>
-    </div>
-  )
+    return (
+        <div>
+            <Header></Header>
+            <DoubleBanner></DoubleBanner>
+            <Footer></Footer>
+        </div>
+    )
 }

@@ -8,12 +8,14 @@ export const ProductDescription = () => {
 
     const location = useLocation(); // 1️⃣ Access the current location object
     const {price} = location.state || {};
+    const {name} = location.state || {};
+    const {desc} = location.state || {};
 
 
     return (
         <div>
             <Header></Header>
-            <ProductDetails productPrice={price}></ProductDetails>
+            <ProductDetails productPrice={price} productName={name} productDesc={desc}></ProductDetails>
             <Footer></Footer>
         </div>
     )
