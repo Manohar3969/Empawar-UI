@@ -10,7 +10,7 @@ import {ProductTypeDetails} from "./ProductTypeDetails";
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-export const ProductTypes = () => {
+export const ProductTypes = (props) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -25,11 +25,12 @@ export const ProductTypes = () => {
 
     return (
         <div className="w-full overflow-auto p-10">
-            <div className="flex w-full p-8 font-bold text-3xl">T Shirts</div>
+            <div className="flex w-full p-8 font-bold text-3xl"> {props.productSearched}</div>
             <div className="w-full overflow-auto">
                 {
                     users.map(user => (
-                        <ProductTypeDetails dress={dress1} productName={user.productName} productPrice={user.productPrice}></ProductTypeDetails>
+                        <ProductTypeDetails dress={dress1} productName={user.productName}
+                                            productPrice={user.productPrice}></ProductTypeDetails>
                     ))
                 }
             </div>
