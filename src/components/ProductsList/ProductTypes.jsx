@@ -24,7 +24,7 @@ export const ProductTypes = (props) => {
     }, []);
 
     return (
-        <div className="w-full overflow-auto p-10">
+        <div className="w-full overflow-auto pl-40 pr-40">
             <div className="flex w-full p-8 font-bold text-3xl"> {props.productSearched}</div>
             <div className="w-full overflow-auto">
                 {

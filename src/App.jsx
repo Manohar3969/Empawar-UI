@@ -11,6 +11,8 @@ import {ProductsSearch} from "./pages/ProductsSearch";
 import {Register} from "./pages/Register";
 import {HomePage} from "./pages/HomePage.jsx";
 import {ProductDescription} from "./pages/ProductDescription.jsx";
+import {CheckoutPage} from "./pages/CheckoutPage.jsx";
+import {AddProduct} from "./pages/AddProduct.jsx";
 
 function App() {
     return (
@@ -25,6 +27,9 @@ function App() {
                     <Route path="/productDesc" element={<ProductDescription/>}/>
                     <Route path="/cartPage" element={<CartPage/>}/>
                     <Route path="/productSearch" element={<ProductsSearch/>}/>
+                    <Route path="/checkout" element={<CheckoutPage/>}/>
+                    <Route path="/orders" element={<Orders/>}/>
+                    <Route path="/addProduct" element={<AddProduct/>}/>
                 </Routes>
             </Router>
         </>

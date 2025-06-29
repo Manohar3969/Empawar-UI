@@ -1,4 +1,8 @@
 import {useNavigate} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar as fasStar, faStarHalfAlt} from "@fortawesome/free-solid-svg-icons";
+import {faStar as farStar} from "@fortawesome/free-regular-svg-icons";
+import React from "react";
 
 export const ProductDetails = (props) => {
     const navigate = useNavigate();
@@ -9,6 +13,22 @@ export const ProductDetails = (props) => {
             alert('Navigation Failed! : ' + err.message);
         }
     }
+
+    const StarRating = ({rating}) => {
+        const stars = [];
+
+        for (let i = 1; i <= 5; i++) {
+            if (rating >= i) {
+                stars.push(<FontAwesomeIcon key={i} icon={fasStar} color="#E67514"/>);
+            } else if (rating >= i - 0.5) {
+                stars.push(<FontAwesomeIcon key={i} icon={faStarHalfAlt} color="#E67514"/>);
+            } else {
+                stars.push(<FontAwesomeIcon key={i} icon={farStar} color="#E67514"/>);
+            }
+        }
+
+        return <div>{stars}</div>;
+    };
 
 
     return (
@@ -36,7 +56,7 @@ export const ProductDetails = (props) => {
                     <p>{props.productDesc}</p>
                 </div>
                 <div className="pl-5 pt-5">Reviews and Ratings</div>
-                <div className="pl-5 pb-10">4 out of 5 Stars</div>
+                <div className="pl-5 pb-10"><span className="text-sm"><StarRating rating={4}/></span></div>
             </div>
         </div>
     )

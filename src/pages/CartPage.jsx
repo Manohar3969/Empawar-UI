@@ -7,8 +7,19 @@ import dress2 from "../assets/dress2.jpeg";
 import dress3 from "../assets/dress3.jpeg";
 import dress4 from "../assets/dress4.jpeg";
 import dress5 from "../assets/dress5.jpeg";
+import {useNavigate} from "react-router-dom";
 
 export const CartPage = () => {
+
+    const navigate = useNavigate();
+    const checkout = () => {
+        try {
+            navigate('/checkout')
+        } catch (err) {
+            alert('Navigation Failed! : ' + err.message);
+        }
+    }
+
     return (
         <div>
             <Header></Header>
@@ -44,7 +55,8 @@ export const CartPage = () => {
                             <span className="pl-5 text-sm">Total Savings: ₹ 250</span>
                         </div>
                         <div className="w-full flex justify-center ">
-                            <button className="flex p-3 mb-4 mt-4 bg-blue-600 text-white rounded-lg cursor-pointer">
+                            <button className="flex p-3 mb-4 mt-4 bg-blue-600 text-white rounded-lg cursor-pointer"
+                                    onClick={checkout}>
                                 Proceed to Checkout
                             </button>
                         </div>
