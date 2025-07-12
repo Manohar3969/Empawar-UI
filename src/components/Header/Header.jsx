@@ -46,7 +46,7 @@ export const Header = () => {
             </div>
             <div className="w-1/4 flex justify-center align-middle items-center font-normal">
                 <ul className="">
-                    <li className="float-left pl-6 pr-6 cursor-pointer">Home</li>
+                    <li className="float-left pl-6 pr-6 cursor-pointer" onClick={navigateHomePage}>Home</li>
                     <li className="float-left pl-6 pr-6 cursor-pointer" onClick={searchProduct}>Shop</li>
                     {/*<li className="float-left pl-6 pr-6 cursor-pointer">About Us</li>*/}
                     <li className="float-left pl-6 pr-6 cursor-pointer">Contact Us</li>
