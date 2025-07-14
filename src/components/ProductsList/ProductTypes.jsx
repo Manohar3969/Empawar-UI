@@ -14,7 +14,7 @@ export const ProductTypes = (props) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/products') // Replace with your API endpoint
+        axios.get('https://empawar.onrender.com/api/products') // Replace with your API endpoint
             .then(response => {
                 setUsers(response.data);
             })
@@ -29,8 +29,10 @@ export const ProductTypes = (props) => {
             <div className="w-full overflow-auto">
                 {
                     users.map(user => (
-                        <ProductTypeDetails dress={dress1} productName={user.productName}
-                                            productPrice={user.productPrice} productDescription={user.productDescription}></ProductTypeDetails>
+                        <ProductTypeDetails dress={dress2} productName={user.productName}
+                                            productPrice={user.productPrice}
+                                            productDescription={user.productDescription}
+                                            productId={user.productId}></ProductTypeDetails>
                     ))
                 }
             </div>

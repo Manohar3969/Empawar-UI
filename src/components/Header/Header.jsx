@@ -50,7 +50,7 @@ export const Header = () => {
                     <li className="float-left pl-6 pr-6 cursor-pointer" onClick={searchProduct}>Shop</li>
                     {/*<li className="float-left pl-6 pr-6 cursor-pointer">About Us</li>*/}
                     <li className="float-left pl-6 pr-6 cursor-pointer">Contact Us</li>
-                    <li className="float-left pl-6 pr-6 cursor-pointer" onClick={addProduct}>Add Products</li>
+                    {/*<li className="float-left pl-6 pr-6 cursor-pointer" onClick={addProduct}>Add Products</li>*/}
                 </ul>
             </div>
             <div className="search w-1/4 flex justify-center align-middle items-center font-normal">

@@ -10,12 +10,14 @@ export const ProductDescription = () => {
     const {price} = location.state || {};
     const {name} = location.state || {};
     const {desc} = location.state || {};
+    const {productId} = location.state || {};
 
 
     return (
         <div>
             <Header></Header>
-            <ProductDetails productPrice={price} productName={name} productDesc={desc}></ProductDetails>
+            <ProductDetails productPrice={price} productName={name} productDesc={desc}
+                            productId={productId}></ProductDetails>
             <Footer></Footer>
         </div>
     )

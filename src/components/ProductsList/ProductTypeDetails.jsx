@@ -13,7 +13,8 @@ export const ProductTypeDetails = (props) => {
                 state: {
                     price: props.productPrice,
                     name: props.productName,
-                    desc: props.productDescription
+                    desc: props.productDescription,
+                    productId: props.productId
                 }
             })
         } catch (err) {
@@ -39,7 +40,7 @@ export const ProductTypeDetails = (props) => {
 
 
     return (
-        <div className="w-1/5 float-left" onClick={productDesc}>
+        <div className="w-1/4 float-left" onClick={productDesc}>
             <div className="m-1 rounded-lg">
                 <div className="w-full">
                     <img src={props.dress} alt="" className="w-full h-90 flex p-4"></img>

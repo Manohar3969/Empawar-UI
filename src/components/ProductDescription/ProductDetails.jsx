@@ -50,7 +50,7 @@ export const ProductDetails = (props) => {
                     <button className="bg-red-500 w-1/3 pl-5 pr-5 pb-3 pt-3 ml-5 text-white font-medium"> Wishlist
                     </button>
                 </div>
-                <div className="pl-5 pt-5"><p className="font-bold">Product Code:</p> 2000155789</div>
+                <div className="pl-5 pt-5"><p className="font-bold">Product Code:</p> {props.productId}</div>
                 <div className="pl-5 pt-10 font-bold"> Product Description</div>
                 <div className="p-5">
                     <p>{props.productDesc}</p>
