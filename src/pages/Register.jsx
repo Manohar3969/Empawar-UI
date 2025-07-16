@@ -17,7 +17,7 @@ export const Register = () => {
     const handleRegistration = async () => {
         try {
             setErrorMessage('');
-            const res = await axios.post('https://empawar.onrender.com/api/users', {
+            const res = await axios.post(import.meta.env.VITE_API_BASE_URL + '/users', {
                 userFirstName,
                 userLastName,
                 userEmailID,

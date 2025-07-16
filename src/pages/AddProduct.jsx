@@ -31,7 +31,7 @@ export const AddProduct = () => {
             formData.append("product", new Blob([JSON.stringify(productData)], {type: "application/json"}));
 
 
-            const res = await axios.post('https://empawar.onrender.com/api/products', formData, {
+            const res = await axios.post(import.meta.env.VITE_API_BASE_URL + '/products', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

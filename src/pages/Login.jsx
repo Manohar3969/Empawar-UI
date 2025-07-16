@@ -9,7 +9,7 @@ export const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post('https://empawar.onrender.com/api/users/login', {username, password});
+            const res = await axios.post(import.meta.env.VITE_API_BASE_URL + '/users/login', {username, password});
             localStorage.setItem('token', res.data.token);
             navigate('/home', {replace: true});
         } catch (err) {

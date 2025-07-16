@@ -14,7 +14,7 @@ export const ProductTypes = (props) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('https://empawar.onrender.com/api/products') // Replace with your API endpoint
+        axios.get(import.meta.env.VITE_API_BASE_URL + '/products') // Replace with your API endpoint
             .then(response => {
                 setUsers(response.data);
             })
