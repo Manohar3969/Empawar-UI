@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Header} from "../components/Header/Header";
 import {Footer} from "../components/Footer/Footer";
 import {CartItem} from "../components/Cart/CartItem";
@@ -8,10 +8,24 @@ import dress3 from "../assets/dress3.jpeg";
 import dress4 from "../assets/dress4.jpeg";
 import dress5 from "../assets/dress5.jpeg";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {ProductTypeDetails} from "../components/ProductsList/ProductTypeDetails.jsx";
 
-export const CartPage = () => {
+export const CartPage = (props) => {
 
     const navigate = useNavigate();
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        axios.get(import.meta.env.VITE_API_BASE_URL + `/cartitems`) // Replace with your API endpoint
+            .then(response => {
+                setCartItems(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }, [props.productPrice]);
+
     const checkout = () => {
         try {
             navigate('/checkout')
@@ -36,11 +50,11 @@ export const CartPage = () => {
                             <span className="pl-5">Select all Items</span>
                         </div>
 
-                        <CartItem productImage={dress1}></CartItem>
-                        <CartItem productImage={dress2}></CartItem>
-                        <CartItem productImage={dress3}></CartItem>
-                        <CartItem productImage={dress4}></CartItem>
-                        <CartItem productImage={dress5}></CartItem>
+                        {
+                            cartItems.map(cartItem => (
+                                <CartItem productImage={dress1} productName={cartItem.cartItemName}></CartItem>
+                            ))
+                        }
                     </div>
                 </div>
 

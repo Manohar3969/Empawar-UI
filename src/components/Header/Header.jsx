@@ -5,7 +5,7 @@ import {faUser} from '@fortawesome/free-regular-svg-icons';
 import {useNavigate} from "react-router-dom";
 
 export const Header = () => {
-    const [productSearch, setProductSearch] = useState("All");
+    const [productSearch, setProductSearch] = useState("T Shirt");
     const navigate = useNavigate();
     const searchProduct = () => {
         try {

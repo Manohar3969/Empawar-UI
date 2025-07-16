@@ -14,14 +14,14 @@ export const ProductTypes = (props) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get(import.meta.env.VITE_API_BASE_URL + '/products') // Replace with your API endpoint
+        axios.get(import.meta.env.VITE_API_BASE_URL + `/products/${props.productSearched}`) // Replace with your API endpoint
             .then(response => {
                 setUsers(response.data);
             })
             .catch(error => {
                 console.error('Error fetching products:', error);
             });
-    }, []);
+    }, [props.productSearched]);
 
     return (
         <div className="w-full overflow-auto pl-40 pr-40">

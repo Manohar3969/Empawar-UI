@@ -19,7 +19,7 @@ export const CartItem = (props) => {
         <div className="w-6/12">
           <div className="w-full ">
             <span className="flex pr-4 pl-4 pt-2 font-bold">
-              T Shirt with Simba Design
+              {props.productName}
             </span>
           </div>
           <div className="w-full flex text-sm">

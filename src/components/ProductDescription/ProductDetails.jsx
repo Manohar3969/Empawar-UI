@@ -2,15 +2,34 @@ import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as fasStar, faStarHalfAlt} from "@fortawesome/free-solid-svg-icons";
 import {faStar as farStar} from "@fortawesome/free-regular-svg-icons";
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
 
 export const ProductDetails = (props) => {
     const navigate = useNavigate();
-    const cartItem = () => {
+
+    const [cartItemID, setCartItemID] = useState("" + props.productId);
+    const [cartItemName, setCartItemName] = useState("" + props.productName);
+    const [cartID, setCartID] = useState("Cart1");
+    const [cartItemQuantity, setCartItemQuantity] = useState("1");
+    const [cartItemPrice, setCartItemPrice] = useState("" + props.productPrice);
+    const [cartItemDiscount, setCartItemDiscount] = useState("10");
+    const [totalItemsPrice, setTotalItemsPrice] = useState("" + props.productPrice);
+
+    const cartItem = async () => {
         try {
+            const res = await axios.post(import.meta.env.VITE_API_BASE_URL + '/cartitems', {
+                cartItemID,
+                cartItemName,
+                cartID,
+                cartItemQuantity,
+                cartItemPrice,
+                cartItemDiscount,
+                totalItemsPrice
+            });
             navigate('/cartPage', {state: {price: props.productPrice}})
         } catch (err) {
-            alert('Navigation Failed! : ' + err.message);
+            alert('Failed! : ' + err.response?.data);
         }
     }
 
