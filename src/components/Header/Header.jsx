@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch, faShoppingBag, faSignOut} from '@fortawesome/free-solid-svg-icons';
 import {faUser} from '@fortawesome/free-regular-svg-icons';
 import {useNavigate} from "react-router-dom";
+import {ConfirmationPopup} from "../ConfirmationPopup/ConfirmationPopup.jsx";
 
 export const Header = () => {
     const [productSearch, setProductSearch] = useState("T Shirt");
@@ -38,6 +39,25 @@ export const Header = () => {
             alert('Navigation Failed! : ' + err.message);
         }
     }
+    const handleSubmit = () => {
+        try {
+            setIsOpen(false);
+            navigate('/logout')
+        } catch (err) {
+            alert('Navigation Failed! : ' + err.message);
+        }
+    }
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    // Handlers
+    const openModal = () => setIsOpen(true);
+    const logout = () => {
+        openModal()
+    };
+    const handleCancel = () => {
+        setIsOpen(false);
+    };
 
     return (
         <div className="w-full flex">
@@ -63,17 +83,19 @@ export const Header = () => {
             </div>
             <div className="w-1/4 flex justify-center items-center font-normal">
                 <ul>
-                    <li className="float-left pl-5 pr-5">
+                    <li className="float-left pl-5 pr-5 cursor-pointer">
                         <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
                     </li>
-                    <li className="float-left pl-5 pr-5">
+                    <li className="float-left pl-5 pr-5 cursor-pointer">
                         <FontAwesomeIcon icon={faShoppingBag} onClick={cartItem}></FontAwesomeIcon>
                     </li>
-                    <li className="float-left pl-5 pr-5">
+                    <li className="float-left pl-5 pr-5 cursor-pointer" onClick={logout}>
                         <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>
                     </li>
                 </ul>
             </div>
+
+            <ConfirmationPopup isOpen={isOpen} cancel={handleCancel} submit={handleSubmit} errorMessage="Logout"></ConfirmationPopup>
         </div>
     )
 }
