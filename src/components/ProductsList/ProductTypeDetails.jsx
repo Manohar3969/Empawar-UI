@@ -41,7 +41,7 @@ export const ProductTypeDetails = (props) => {
 
     return (
         <div className="w-1/4 float-left" onClick={productDesc}>
-            <div className="m-1 rounded-lg">
+            <div className="m-1">
                 <div className="w-full">
                     <img src={props.dress} alt="" className="w-full h-90 flex p-4"></img>
                 </div>
