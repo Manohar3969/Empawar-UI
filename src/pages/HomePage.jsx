@@ -1,13 +1,14 @@
 import React from 'react'
-import {Header} from "../components/Header/Header.jsx";
+
 import {Footer} from "../components/Footer/Footer.jsx";
 import {DoubleBanner} from "../components/Banner/DoubleBanner.jsx";
 import {ProductTypes} from "../components/ProductsList/ProductTypes.jsx";
+import Header2 from "../components/Header/Header2.jsx";
 
 export const HomePage = () => {
     return (
         <div>
-            <Header></Header>
+            <Header2></Header2>
             <DoubleBanner></DoubleBanner>
             <Footer></Footer>
         </div>
