@@ -18,20 +18,53 @@ const navLinks = [
     { name: 'Contact', href: '/contact' },
 ];
 
-export default function Header2() {
+export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Demo auth state toggle
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulated auth state
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [theme, setTheme] = useState('light'); // Placeholder for theme switch logic
-
+    const [theme, setTheme] = useState('light'); // 'light' or 'dark'
     const searchContainerRef = useRef(null);
-    const cartItemCount = 3; // Example cart count
+    const cartItemCount = 3; // example cart count
 
-    // Handle clicks outside search container to close search input
+    // Initialize theme from localStorage or system preference on mount
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (
+            savedTheme === 'dark' ||
+            (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            setTheme('dark');
+            document.documentElement.classList.add('dark');
+        } else {
+            setTheme('light');
+            document.documentElement.classList.remove('dark');
+        }
+    }, []);
+
+    // Apply or remove `.dark` class on html element and save theme on change
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [theme]);
+
+    // Toggle theme between light and dark
+    const toggleTheme = () => {
+        setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
+    };
+
+    // Close search if click outside search container
     useEffect(() => {
         function handleClickOutside(event) {
-            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+            if (
+                searchContainerRef.current &&
+                !searchContainerRef.current.contains(event.target)
+            ) {
                 setSearchOpen(false);
                 setSearchQuery('');
             }
@@ -44,26 +77,28 @@ export default function Header2() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [searchOpen]);
 
-    // Keyboard support: Enter triggers search, Escape closes
+    // Support keyboard (Enter to search, Escape to close)
     useEffect(() => {
         function handleKeyDown(e) {
             if (e.key === 'Escape') {
                 setSearchOpen(false);
                 setSearchQuery('');
             }
-            if (e.key === 'Enter' && searchOpen && searchQuery.trim()) {
+            if (e.key === 'Enter' && searchOpen) {
                 e.preventDefault();
-                console.log('Searching for:', searchQuery.trim());
-                setSearchOpen(false);
-                setSearchQuery('');
-                setMenuOpen(false);
+                if (searchQuery.trim()) {
+                    console.log('Searching for:', searchQuery.trim());
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                    setMenuOpen(false);
+                }
             }
         }
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [searchOpen, searchQuery]);
 
-    // Focus input when it opens
+    // Focus search input when opened
     useEffect(() => {
         if (searchOpen && searchContainerRef.current) {
             const input = searchContainerRef.current.querySelector('input');
@@ -71,30 +106,25 @@ export default function Header2() {
         }
     }, [searchOpen]);
 
-    // Theme toggle placeholder - currently toggles light/dark state internally, no effect yet
-    const toggleTheme = () => {
-        setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
-    };
-
     return (
-        <header className="sticky top-0 z-50 bg-[#FAFAFA] text-[#4A4A4A] shadow-sm font-poppins select-none transition-colors duration-300">
+        <header className="sticky top-0 z-50 bg-[#FAFAFA] dark:bg-[#1E293B] text-[#4A4A4A] dark:text-[#F1F5F9] shadow-sm font-poppins select-none transition-colors duration-500">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:py-5">
                 {/* Logo */}
                 <a
                     href="/"
-                    className="text-4xl font-dancingScript text-[#6CA0A3] hover:text-[#7BB0B0] transition-colors duration-300"
+                    className="text-4xl font-dancingScript text-[#6CA0A3] dark:text-[#7DD3FC] hover:text-[#7BB0B0] dark:hover:text-[#a5d8ff] transition-colors duration-300"
                     style={{ fontFamily: "'Dancing Script', cursive" }}
                 >
                     Empawar
                 </a>
 
-                {/* Desktop Nav */}
+                {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-10 font-semibold text-lg items-center">
                     {navLinks.map((link) => (
                         <a
                             key={link.name}
                             href={link.href}
-                            className="hover:text-[#6CA0A3] transition-colors duration-300"
+                            className="hover:text-[#6CA0A3] dark:hover:text-[#a5d8ff] transition-colors duration-300"
                         >
                             {link.name}
                         </a>
@@ -105,19 +135,21 @@ export default function Header2() {
                         <button
                             aria-label="Toggle Search"
                             className={`p-2 rounded-md transition-colors duration-300 ${
-                                searchOpen ? 'bg-[#FAD4C0]' : 'hover:bg-[#FAD4C0]'
+                                searchOpen ? 'bg-[#FAD4C0] dark:bg-[#FBBF24]' : 'hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24]'
                             }`}
-                            onClick={() => setSearchOpen((v) => !v)}
+                            onClick={() => setSearchOpen((prev) => !prev)}
+                            type="button"
                         >
-                            <SearchIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <SearchIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         </button>
+
                         {searchOpen && (
                             <input
                                 type="text"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search products..."
-                                className="ml-2 px-3 py-1 rounded-md border border-[#6CA0A3] bg-white text-[#4A4A4A] focus:outline-none focus:ring-2 focus:ring-[#FFBC9A] transition-width duration-300 font-normal"
+                                className="ml-2 px-3 py-1 rounded-md border border-[#6CA0A3] dark:border-[#7DD3FC] bg-white dark:bg-[#2e3748] text-[#4A4A4A] dark:text-[#F1F5F9] focus:outline-none focus:ring-2 focus:ring-[#FFBC9A] dark:focus:ring-[#FBBF24] transition-width duration-300 font-normal"
                                 style={{ width: '200px' }}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' && searchQuery.trim()) {
@@ -138,58 +170,60 @@ export default function Header2() {
                     </div>
                 </nav>
 
-                {/* Right Icons & CTA */}
+                {/* Right Side Icons and CTAs */}
                 <div className="hidden md:flex items-center space-x-4">
-                    {/* Theme toggle placeholder button */}
+                    {/* Theme Toggle Button */}
                     <button
                         onClick={toggleTheme}
-                        aria-label="Toggle Theme (future)"
-                        className="p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
-                        title="Theme switch (not active yet)"
+                        aria-label="Toggle Dark/Light Mode"
+                        className="p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
+                        type="button"
                     >
                         {theme === 'light' ? (
-                            <MoonIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <MoonIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         ) : (
-                            <SunIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <SunIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         )}
                     </button>
 
-                    {/* Wishlist button */}
+                    {/* Wishlist */}
                     <button
                         aria-label="Wishlist"
-                        className="p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
+                        className="p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
+                        type="button"
                     >
-                        <HeartIcon className="h-6 w-6 text-[#6CA0A3]" />
+                        <HeartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                     </button>
 
                     {/* Cart with badge */}
                     <a
                         href="/cart"
-                        className="relative p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
+                        className="relative p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
                         aria-label="Cart"
                     >
-                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3]" />
+                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         {cartItemCount > 0 && (
-                            <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] text-xs rounded-full px-2 font-bold">
+                            <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
                 {cartItemCount}
               </span>
                         )}
                     </a>
 
-                    {/* Auth buttons (auto-switching) */}
+                    {/* Auth Buttons (auto switching based on login state) */}
                     {isLoggedIn ? (
                         <>
                             <a
                                 href="/account"
-                                className="flex items-center space-x-2 text-[#6CA0A3] hover:text-[#FFBC9A] font-semibold transition-colors duration-300"
+                                className="flex items-center space-x-2 text-[#6CA0A3] dark:text-[#7DD3FC] hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] font-semibold transition-colors duration-300"
                             >
                                 <UserIcon className="h-5 w-5" />
                                 <span>My Account</span>
                             </a>
                             <button
                                 onClick={() => setIsLoggedIn(false)}
-                                className="flex items-center space-x-2 text-[#6CA0A3] hover:text-[#FFBC9A] font-semibold transition-colors duration-300"
+                                className="flex items-center space-x-2 text-[#6CA0A3] dark:text-[#7DD3FC] hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] font-semibold transition-colors duration-300"
                                 aria-label="Logout"
+                                type="button"
                             >
                                 <LogoutIcon className="h-5 w-5" />
                                 <span>Logout</span>
@@ -198,7 +232,7 @@ export default function Header2() {
                     ) : (
                         <a
                             href="/signup"
-                            className="flex items-center space-x-2 bg-[#FFBC9A] text-[#4A4A4A] px-4 py-1.5 rounded-md font-semibold hover:bg-[#e6a98c] transition-colors duration-300"
+                            className="flex items-center space-x-2 bg-[#FFBC9A] dark:bg-[#FBBF24] text-[#4A4A4A] dark:text-[#1E293B] px-4 py-1.5 rounded-md font-semibold hover:bg-[#e6a98c] dark:hover:bg-[#d4a30f] transition-colors duration-300"
                         >
                             <UserIcon className="h-5 w-5" />
                             <span>Sign Up</span>
@@ -206,27 +240,29 @@ export default function Header2() {
                     )}
                 </div>
 
-                {/* Mobile menu & icons */}
+                {/* Mobile menu toggles */}
                 <div className="md:hidden flex items-center space-x-2">
                     {/* Search toggle */}
                     <button
                         aria-label="Toggle Search"
-                        className="p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
+                        className="p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
                         onClick={() => setSearchOpen((prev) => !prev)}
+                        type="button"
                     >
-                        <SearchIcon className="h-6 w-6 text-[#6CA0A3]" />
+                        <SearchIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                     </button>
 
-                    {/* Theme toggle (placeholder) */}
+                    {/* Theme toggle */}
                     <button
                         onClick={toggleTheme}
-                        aria-label="Toggle Theme (future)"
-                        className="p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
+                        aria-label="Toggle Dark/Light Mode"
+                        className="p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
+                        type="button"
                     >
                         {theme === 'light' ? (
-                            <MoonIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <MoonIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         ) : (
-                            <SunIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <SunIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         )}
                     </button>
 
@@ -234,12 +270,13 @@ export default function Header2() {
                     <button
                         onClick={() => setMenuOpen(!menuOpen)}
                         aria-label="Toggle Menu"
-                        className="p-2 rounded-md hover:bg-[#FAD4C0] transition-colors duration-300"
+                        className="p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
+                        type="button"
                     >
                         {menuOpen ? (
-                            <XIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <XIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         ) : (
-                            <MenuIcon className="h-6 w-6 text-[#6CA0A3]" />
+                            <MenuIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
                         )}
                     </button>
                 </div>
@@ -247,13 +284,16 @@ export default function Header2() {
 
             {/* Mobile search input */}
             {searchOpen && (
-                <div ref={searchContainerRef} className="md:hidden px-6 pb-4 bg-[#FAFAFA]">
+                <div
+                    ref={searchContainerRef}
+                    className="md:hidden px-6 pb-4 bg-[#FAFAFA] dark:bg-[#1E293B]"
+                >
                     <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search products..."
-                        className="w-full px-4 py-2 rounded-md border border-[#6CA0A3] bg-white text-[#4A4A4A] focus:outline-none focus:ring-2 focus:ring-[#FFBC9A] transition-colors font-normal"
+                        className="w-full px-4 py-2 rounded-md border border-[#6CA0A3] dark:border-[#7DD3FC] bg-white dark:bg-[#2e3748] text-[#4A4A4A] dark:text-[#F1F5F9] focus:outline-none focus:ring-2 focus:ring-[#FFBC9A] dark:focus:ring-[#FBBF24] transition-colors font-normal"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' && searchQuery.trim()) {
                                 e.preventDefault();
@@ -274,12 +314,12 @@ export default function Header2() {
 
             {/* Mobile menu */}
             {menuOpen && (
-                <nav className="md:hidden bg-[#FAFAFA] px-6 pb-6 space-y-4 font-semibold text-[#6CA0A3]">
+                <nav className="md:hidden bg-[#FAFAFA] dark:bg-[#1E293B] px-6 pb-6 space-y-4 font-semibold text-[#6CA0A3] dark:text-[#7DD3FC]">
                     {navLinks.map((link) => (
                         <a
                             key={link.name}
                             href={link.href}
-                            className="block hover:text-[#FFBC9A] transition-colors duration-300"
+                            className="block hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
                             onClick={() => setMenuOpen(false)}
                         >
                             {link.name}
@@ -289,7 +329,7 @@ export default function Header2() {
                     {/* Cart mobile */}
                     <a
                         href="/cart"
-                        className="flex items-center space-x-2 hover:text-[#FFBC9A] transition-colors duration-300"
+                        className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
                         onClick={() => setMenuOpen(false)}
                     >
                         <ShoppingCartIcon className="h-6 w-6" />
@@ -301,7 +341,7 @@ export default function Header2() {
                         <>
                             <a
                                 href="/account"
-                                className="flex items-center space-x-2 hover:text-[#FFBC9A] transition-colors duration-300"
+                                className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
                                 onClick={() => setMenuOpen(false)}
                             >
                                 <UserIcon className="h-6 w-6" />
@@ -312,7 +352,7 @@ export default function Header2() {
                                     setIsLoggedIn(false);
                                     setMenuOpen(false);
                                 }}
-                                className="flex items-center space-x-2 hover:text-[#FFBC9A] transition-colors duration-300"
+                                className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
                             >
                                 <LogoutIcon className="h-6 w-6" />
                                 <span>Logout</span>
@@ -321,7 +361,7 @@ export default function Header2() {
                     ) : (
                         <a
                             href="/signup"
-                            className="flex items-center space-x-2 bg-[#FFBC9A] text-[#4A4A4A] px-4 py-1.5 rounded-md hover:bg-[#e6a98c] transition-colors duration-300"
+                            className="flex items-center space-x-2 bg-[#FFBC9A] dark:bg-[#FBBF24] text-[#4A4A4A] dark:text-[#1E293B] px-4 py-1.5 rounded-md hover:bg-[#e6a98c] dark:hover:bg-[#d4a30f] transition-colors duration-300"
                             onClick={() => setMenuOpen(false)}
                         >
                             <UserIcon className="h-6 w-6" />
