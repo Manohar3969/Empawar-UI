@@ -119,7 +119,7 @@ export default function Header() {
                 </a>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-10 font-semibold text-lg items-center">
+                <nav className="hidden md:flex space-x-10 font-semibold text-lg items-center " style={{ fontFamily: "'Playfair Display', serif" }}>
                     {navLinks.map((link) => (
                         <a
                             key={link.name}
