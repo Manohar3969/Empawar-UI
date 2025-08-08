@@ -10,7 +10,7 @@ import ProductsPage from "./ProductsPage.jsx";
 export const HomePage = () => {
     return (
         <div>
-            <ProductsPage></ProductsPage>
+            <DoubleBanner/>
         </div>
     )
 }

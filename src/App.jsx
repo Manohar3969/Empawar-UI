@@ -1,7 +1,7 @@
 import "./App.css";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {DoubleBanner} from "./components/Banner/DoubleBanner";
-import {Footer} from "./components/Footer/Footer";
+import Footer2 from "./components/Footer/Footer2.jsx";
 import Header2 from "./components/Header/Header2.jsx"
 import {ProductTypes} from "./components/ProductsList/ProductTypes";
 import {CartPage} from "./pages/CartPage";
@@ -57,7 +57,7 @@ function App() {
                             {/* Add more pages as needed */}
                         </Routes>
                     </main>
-                    <Footer/>
+                    <Footer2/>
                 </Router>
             </SearchProvider>
 

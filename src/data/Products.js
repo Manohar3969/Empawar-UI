@@ -2,7 +2,7 @@ const products = [
     {
         id: 1,
         name: 'Cotton Linen Kurta',
-        image: 'https://via.placeholder.com/300x400?text=Cotton+Kurta',
+        image: 'https://triprindia.com/cdn/shop/files/TGYRNFULSWEAT-PLAIN1_9625fe55-7250-40c8-bd3d-6e32fc4d4f38_1.jpg?v=1741074028',
         images: [
             'https://via.placeholder.com/300x400?text=Cotton+Kurta',
             'https://via.placeholder.com/300x400?text=Cotton+Kurta+Back',
@@ -24,7 +24,7 @@ const products = [
     {
         id: 2,
         name: 'Classic Fit Shirt',
-        image: 'https://via.placeholder.com/300x400?text=Shirt',
+        image: 'https://campussutra.com/cdn/shop/products/Black-and-Brown-Pullover-Hoodie-With-Ribbed-Hem-1.webp?v=1699022953',
         images: [],
         price: 1199,
         originalPrice: null,
