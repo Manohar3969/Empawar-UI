@@ -16,6 +16,7 @@ import {AddProduct} from "./pages/AddProduct.jsx";
 import React from 'react';
 import {SearchProvider} from './contexts/SearchContext';
 import ProductsPage from './pages/ProductsPage';
+import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
 
 // Dummy home, about, contact pages for routing completeness
 function AboutPage() {
@@ -54,6 +55,7 @@ function App() {
                             <Route path="/about" element={<AboutPage/>}/>
                             <Route path="/contact" element={<ContactPage/>}/>
                             <Route path="/products" element={<ProductsPage/>}/>
+                            <Route path="/products/:id" element={<ProductDetailsPage />} />
                             {/* Add more pages as needed */}
                         </Routes>
                     </main>
