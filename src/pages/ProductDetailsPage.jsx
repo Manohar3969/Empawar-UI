@@ -21,8 +21,15 @@ export default function ProductDetailsPage() {
     const [isFav, setIsFav] = useState(product.isFavorite);
 
     // Get current images based on color selection (optional)
+    // Find the chosen color object
     const currentColorObj = product.colors.find(c => c.value === selectedColor);
-    const images = currentColorObj?.image ? [currentColorObj.image] : product.images;
+
+// Decide which images to pass to the carousel
+    const images =
+        currentColorObj && Array.isArray(currentColorObj.images) && currentColorObj.images.length > 0
+            ? currentColorObj.images
+            : product.images;
+
 
     // Simulate recommended products by ID
     const recommended = products.filter(p =>

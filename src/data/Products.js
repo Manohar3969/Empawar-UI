@@ -4,11 +4,9 @@ const products = [
         name: 'Cotton Linen Kurta',
         description: 'Premium soft linen/cotton blend. Perfect for summer!',
         images: [
-            'https://images-cdn.ubuy.co.in/6528e33ff996c76ffd78fe34-aran-woollen-mills-mens-100-wool-irish.jpg',
-            'https://m.media-amazon.com/images/I/71SWanWi2cL._UY1100_.jpg',
-            'https://m.media-amazon.com/images/I/71rESG2AAKL._AC_SL1500_.jpg',
-            'https://m.media-amazon.com/images/I/81ysMGlHGjL._AC_SL1500_.jpg'
-        ],
+            'https://via.placeholder.com/400x500?text=Kurta+Front',
+            'https://via.placeholder.com/400x500?text=Kurta+Back'
+        ], // fallback images
         price: 799,
         originalPrice: 999,
         badge: 'Sale',
@@ -21,16 +19,27 @@ const products = [
         ],
         colors: [
             {
-                name: 'Black',
+                name: 'Blue',
                 value: '#232323',
-                image: 'https://images-cdn.ubuy.co.in/6528e33ff996c76ffd78fe34-aran-woollen-mills-mens-100-wool-irish.jpg'
+                images: [
+                    'https://m.media-amazon.com/images/I/71rESG2AAKL._AC_SL1500_.jpg',
+                    'https://m.media-amazon.com/images/I/71R0F7vxYxL._UY1000_.jpg',
+                    'https://m.media-amazon.com/images/I/81sU7E+BExL._AC_SL1500_.jpg'
+                ]
             },
-            {name: 'Peach', value: '#FAD4C0', image: 'https://m.media-amazon.com/images/I/71SWanWi2cL._UY1100_.jpg'},
+            {
+                name: 'Peach',
+                value: '#FAD4C0',
+                images: [
+                    'https://m.media-amazon.com/images/I/716dnSqJnEL._UY1000_.jpg',
+                    'https://m.media-amazon.com/images/I/61KancjvgWL._UY1000_.jpg'
+                ]
+            }
         ],
         inStock: true,
         reviews: [
-            {user: "Aditi", rating: 5, text: "Lovely fabric and fit!", date: "2025-07-01"},
-            {user: "Rahul", rating: 4, text: "Good quality, decent price.", date: "2025-07-03"},
+            {user: 'Aditi', rating: 5, text: 'Lovely fabric and fit!', date: '2025-07-01'},
+            {user: 'Rahul', rating: 4, text: 'Good quality, decent price.', date: '2025-07-03'},
         ],
         relatedProductIds: [2, 3]
     },
