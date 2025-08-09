@@ -17,6 +17,8 @@ import React from 'react';
 import {SearchProvider} from './contexts/SearchContext';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
+import {CartProvider} from "./contexts/CartContext.jsx";
+import CartPage2 from "./pages/CartPage2.jsx";
 
 // Dummy home, about, contact pages for routing completeness
 function AboutPage() {
@@ -47,20 +49,23 @@ function App() {
             {/*</Router>*/}
 
             <SearchProvider>
-                <Router>
-                    <Header2/>
-                    <main>
-                        <Routes>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/about" element={<AboutPage/>}/>
-                            <Route path="/contact" element={<ContactPage/>}/>
-                            <Route path="/products" element={<ProductsPage/>}/>
-                            <Route path="/products/:id" element={<ProductDetailsPage />} />
-                            {/* Add more pages as needed */}
-                        </Routes>
-                    </main>
-                    <Footer2/>
-                </Router>
+                <CartProvider>
+                    <Router>
+                        <Header2/>
+                        <main>
+                            <Routes>
+                                <Route path="/" element={<HomePage/>}/>
+                                <Route path="/about" element={<AboutPage/>}/>
+                                <Route path="/contact" element={<ContactPage/>}/>
+                                <Route path="/products" element={<ProductsPage/>}/>
+                                <Route path="/products/:id" element={<ProductDetailsPage/>}/>
+                                <Route path="/cart" element={<CartPage2/>}/>
+                                {/* Add more pages as needed */}
+                            </Routes>
+                        </main>
+                        <Footer2/>
+                    </Router>
+                </CartProvider>
             </SearchProvider>
 
         </>

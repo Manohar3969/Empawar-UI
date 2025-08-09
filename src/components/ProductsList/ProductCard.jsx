@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { HeartIcon, ShoppingCartIcon, StarIcon } from '@heroicons/react/solid';
+import React, {useState} from 'react';
+import {HeartIcon, ShoppingCartIcon, StarIcon} from '@heroicons/react/solid';
+import {useCart} from "../../contexts/CartContext.jsx";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({product}) {
     const [isFav, setIsFav] = useState(product.isFavorite);
+    const {addToCart} = useCart();
+
+    const handleAddToCart = () => {
+        addToCart({
+            product,
+            selectedSize: null, // or default size if applicable
+            selectedColor: null, // or default color if applicable
+            quantity: 1,
+        });
+        console.log("Adding to cart:", {product, selectedSize, selectedColor, quantity});
+    };
 
     return (
-        <div className="bg-white dark:bg-[#1E293B] rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 overflow-hidden">
+        <div
+            className="bg-white dark:bg-[#1E293B] rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 overflow-hidden">
             {/* Image Section */}
             <div className="relative">
                 <img
@@ -66,7 +79,7 @@ export default function ProductCard({ product }) {
                             <span
                                 key={idx}
                                 className="w-5 h-5 rounded-full border border-gray-300"
-                                style={{ backgroundColor: color }}
+                                style={{backgroundColor: color}}
                             ></span>
                         ))}
                     </div>
@@ -89,8 +102,10 @@ export default function ProductCard({ product }) {
                     </div>
                 )}
                 {/* Actions */}
-                <button className="w-full flex items-center justify-center space-x-2 py-2 bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white rounded transition">
-                    <ShoppingCartIcon className="h-5 w-5" />
+                <button
+                    className="w-full flex items-center justify-center space-x-2 py-2 bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white rounded transition"
+                    onClick={handleAddToCart}>
+                    <ShoppingCartIcon className="h-5 w-5"/>
                     <span>Add to Cart</span>
                 </button>
             </div>

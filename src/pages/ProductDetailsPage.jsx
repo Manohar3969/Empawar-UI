@@ -10,6 +10,8 @@ import ColorPicker from "../components/ProductDescription/ColorPicker.jsx";
 import QuantitySelector from "../components/ProductDescription/QuantitySelector.jsx";
 import ReviewList from "../components/ProductDescription/ReviewList.jsx";
 import RecommendedProducts from "../components/ProductDescription/RecommendedProducts.jsx";
+import {useCart} from "../contexts/CartContext.jsx";
+import {Link, useNavigate} from 'react-router-dom';
 
 // Simulate getting product by ID (for demo, just use first one)
 const product = products[0];
@@ -19,6 +21,9 @@ export default function ProductDetailsPage() {
     const [selectedColor, setSelectedColor] = useState(product.colors[0]?.value);
     const [quantity, setQuantity] = useState(1);
     const [isFav, setIsFav] = useState(product.isFavorite);
+
+    const {addToCart} = useCart();
+    console.log("CartContext in ProductDetailsPage:", useCart());
 
     // Get current images based on color selection (optional)
     // Find the chosen color object
@@ -35,6 +40,17 @@ export default function ProductDetailsPage() {
     const recommended = products.filter(p =>
         product.relatedProductIds?.includes(p.id)
     );
+
+    // assume product is from products.js, selected size/color state already in use
+    const handleAddToCart = () => {
+        addToCart({
+            product,                          // full data object for this product
+            quantity,                         // from QuantitySelector
+            selectedSize,                     // from SizeSelector
+            selectedColor,                    // from ColorPicker
+        });
+        console.log("Adding to cart:", {product, selectedSize, selectedColor, quantity});
+    };
 
     return (
         <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -98,6 +114,7 @@ export default function ProductDetailsPage() {
                 <div className="flex items-center space-x-2 mb-4">
                     <button
                         className="flex items-center space-x-1 px-5 py-2 rounded bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white font-semibold transition"
+                        onClick={handleAddToCart}
                     >
                         <ShoppingCartIcon className="h-5 w-5"/>
                         <span>Add to Cart</span>

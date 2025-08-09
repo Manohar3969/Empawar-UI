@@ -11,7 +11,8 @@ import {
     MoonIcon,
 } from "@heroicons/react/outline";
 import {useSearch} from "../../contexts/SearchContext.jsx";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useCart} from "../../contexts/CartContext.jsx";
 
 const navLinks = [
     {name: "Home", href: "/"},
@@ -26,7 +27,8 @@ export default function Header2() {
     const [searchOpen, setSearchOpen] = useState(false);
     const [theme, setTheme] = useState("light");
     const searchContainerRef = useRef(null);
-    const cartItemCount = 3; // Replace with real cart count if you have one
+    const {cartItems} = useCart();
+    const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0); // Replace with real cart count if you have one
 
     // Global search context/state
     const {searchQuery, setSearchQuery} = useSearch();
@@ -196,19 +198,19 @@ export default function Header2() {
                         <HeartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]"/>
                     </button>
                     {/* Cart with badge */}
-                    <a
-                        href="/cart"
+                    <Link
+                        to="/cart"
                         className="relative p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
                         aria-label="Cart"
                     >
-                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]"/>
+                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
+
                         {cartItemCount > 0 && (
-                            <span
-                                className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
-                {cartItemCount}
-              </span>
+                            <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
+      {cartItemCount > 9 ? '9+' : cartItemCount}
+    </span>
                         )}
-                    </a>
+                    </Link>
                     {/* Auth Buttons (auto switching based on login state) */}
                     {isLoggedIn ? (
                         <>
@@ -318,14 +320,21 @@ export default function Header2() {
                         </a>
                     ))}
                     {/* Cart mobile */}
-                    <a
-                        href="/cart"
-                        className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
-                        onClick={() => setMenuOpen(false)}
+                    <Link
+                        to="/cart"
+                        className="relative flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
+                        onClick={() => setMenuOpen(false)} // if you want to close the menu after click
                     >
-                        <ShoppingCartIcon className="h-6 w-6"/>
-                        <span>Cart ({cartItemCount})</span>
-                    </a>
+                        <div className="relative">
+                            <ShoppingCartIcon className="h-6 w-6" />
+                            {cartItemCount > 0 && (
+                                <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
+        {cartItemCount > 9 ? '9+' : cartItemCount}
+      </span>
+                            )}
+                        </div>
+                        <span>Cart</span>
+                    </Link>
                     {/* Auth mobile */}
                     {isLoggedIn ? (
                         <>
