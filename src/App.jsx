@@ -9,7 +9,7 @@ import {Login} from "./pages/Login";
 import {Orders} from "./pages/Orders";
 import {ProductsSearch} from "./pages/ProductsSearch";
 import {Register} from "./pages/Register";
-import {HomePage} from "./pages/HomePage.jsx";
+
 import {ProductDescription} from "./pages/ProductDescription.jsx";
 import {CheckoutPage} from "./pages/CheckoutPage.jsx";
 import {AddProduct} from "./pages/AddProduct.jsx";
@@ -19,6 +19,9 @@ import ProductsPage from './pages/ProductsPage';
 import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
 import {CartProvider} from "./contexts/CartContext.jsx";
 import CartPage2 from "./pages/CartPage2.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 
 // Dummy home, about, contact pages for routing completeness
 function AboutPage() {
@@ -55,11 +58,11 @@ function App() {
                         <main>
                             <Routes>
                                 <Route path="/" element={<HomePage/>}/>
-                                <Route path="/about" element={<AboutPage/>}/>
-                                <Route path="/contact" element={<ContactPage/>}/>
                                 <Route path="/products" element={<ProductsPage/>}/>
                                 <Route path="/products/:id" element={<ProductDetailsPage/>}/>
                                 <Route path="/cart" element={<CartPage2/>}/>
+                                <Route path="/about" element={<AboutUs />} />
+                                <Route path="/contact" element={<ContactUs />} />
                                 {/* Add more pages as needed */}
                             </Routes>
                         </main>

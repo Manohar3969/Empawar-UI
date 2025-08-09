@@ -128,13 +128,13 @@ export default function Header2() {
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-10 font-semibold text-lg items-center">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.name}
-                            href={link.href}
+                            to={link.href}
                             className="hover:text-[#6CA0A3] dark:hover:text-[#a5d8ff] transition-colors duration-300"
                         >
                             {link.name}
-                        </a>
+                        </Link>
                     ))}
 
                     {/* Search Icon + Input: Combined for outside click logic */}
@@ -203,10 +203,11 @@ export default function Header2() {
                         className="relative p-2 rounded-md hover:bg-[#FAD4C0] dark:hover:bg-[#FBBF24] transition-colors duration-300"
                         aria-label="Cart"
                     >
-                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]" />
+                        <ShoppingCartIcon className="h-6 w-6 text-[#6CA0A3] dark:text-[#7DD3FC]"/>
 
                         {cartItemCount > 0 && (
-                            <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
+                            <span
+                                className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
       {cartItemCount > 9 ? '9+' : cartItemCount}
     </span>
                         )}
@@ -310,14 +311,14 @@ export default function Header2() {
                 <nav
                     className="md:hidden bg-[#FAFAFA] dark:bg-[#1E293B] px-6 pb-6 space-y-4 font-semibold text-[#6CA0A3] dark:text-[#7DD3FC]">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.name}
-                            href={link.href}
+                            to={link.href}
                             className="block hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
                             onClick={() => setMenuOpen(false)}
                         >
                             {link.name}
-                        </a>
+                        </Link>
                     ))}
                     {/* Cart mobile */}
                     <Link
@@ -326,9 +327,10 @@ export default function Header2() {
                         onClick={() => setMenuOpen(false)} // if you want to close the menu after click
                     >
                         <div className="relative">
-                            <ShoppingCartIcon className="h-6 w-6" />
+                            <ShoppingCartIcon className="h-6 w-6"/>
                             {cartItemCount > 0 && (
-                                <span className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
+                                <span
+                                    className="absolute -top-1 -right-2 bg-[#FFBC9A] text-[#4A4A4A] font-bold text-xs rounded-full px-2 dark:bg-[#FBBF24] dark:text-[#1E293B]">
         {cartItemCount > 9 ? '9+' : cartItemCount}
       </span>
                             )}
