@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {useCart} from "../../contexts/CartContext.jsx";
+import {Link} from 'react-router-dom';
 
 
 export default function CartSummary() {
-    const { cartItems } = useCart();
+    const {cartItems} = useCart();
     const [promoCode, setPromoCode] = useState("");
     const [appliedPromo, setAppliedPromo] = useState(null);
     const [promoError, setPromoError] = useState("");
@@ -52,7 +53,7 @@ export default function CartSummary() {
                         <span>-₹{discount}</span>
                     </div>
                 )}
-                <div className="border-t border-gray-200 dark:border-gray-600 mt-3" />
+                <div className="border-t border-gray-200 dark:border-gray-600 mt-3"/>
                 <div className="flex justify-between mt-3 text-lg font-bold">
                     <span>Total</span>
                     <span>₹{total}</span>
@@ -87,9 +88,14 @@ export default function CartSummary() {
             </div>
 
             {/* Checkout button */}
-            <button className="w-full py-2 rounded bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white dark:bg-[#7DD3FC] dark:text-[#1E293B] font-bold mt-2">
-                Proceed to Checkout
-            </button>
+
+            <Link to="/checkout">
+                <button
+                    className="w-full py-2 rounded bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white dark:bg-[#7DD3FC] dark:text-[#1E293B] font-bold mt-2">Proceed
+                    to Checkout
+                </button>
+            </Link>
+
         </aside>
     );
 }

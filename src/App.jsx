@@ -11,7 +11,7 @@ import {ProductsSearch} from "./pages/ProductsSearch";
 import {Register} from "./pages/Register";
 
 import {ProductDescription} from "./pages/ProductDescription.jsx";
-import {CheckoutPage} from "./pages/CheckoutPage.jsx";
+import CheckoutPage2 from "./pages/CheckoutPage2.jsx";
 import {AddProduct} from "./pages/AddProduct.jsx";
 import React from 'react';
 import {SearchProvider} from './contexts/SearchContext';
@@ -71,7 +71,7 @@ function App() {
                                     <Route path="/orders" element={<OrdersPage/>}/>
                                     {/*<Route path="/orders/:id" element={<OrderDetail/>}/>*/}
                                     <Route path="/orders/:id" element={<OrderDetailPage/>}/>
-                                    <Route path="/checkout" element={<CheckoutPage />} />
+                                    <Route path="/checkout" element={<CheckoutPage2/>}/>
                                     {/* Add more pages as needed */}
                                 </Routes>
                             </main>
