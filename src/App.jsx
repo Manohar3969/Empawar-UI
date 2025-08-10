@@ -71,6 +71,7 @@ function App() {
                                     <Route path="/orders" element={<OrdersPage/>}/>
                                     {/*<Route path="/orders/:id" element={<OrderDetail/>}/>*/}
                                     <Route path="/orders/:id" element={<OrderDetailPage/>}/>
+                                    <Route path="/checkout" element={<CheckoutPage />} />
                                     {/* Add more pages as needed */}
                                 </Routes>
                             </main>
