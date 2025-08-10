@@ -1,10 +1,13 @@
 // src/pages/OrdersPage.jsx
 import React from 'react';
-import { orders } from '../data/orders';
+import {orders} from '../data/orders.js';
 import OrderCard from "../components/Orders/OrderCard.jsx";
 
 
+
 export default function OrdersPage() {
+    console.log("✅ OrdersPage received orders data:", orders); // DEBUG
+
     return (
         <div className="max-w-5xl mx-auto p-6">
             <h1 className="text-2xl font-bold mb-6">My Orders</h1>
@@ -13,7 +16,7 @@ export default function OrdersPage() {
             ) : (
                 <div className="grid md:grid-cols-2 gap-4">
                     {orders.map(order => (
-                        <OrderCard key={order.id} order={order} />
+                        <OrderCard key={order.id} order={order}/>
                     ))}
                 </div>
             )}

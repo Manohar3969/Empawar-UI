@@ -1,13 +1,18 @@
 // src/components/OrderCard.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-export default function OrderCard({ order }) {
+export default function OrderCard({order}) {
+    console.log("🛒 Rendering OrderCard for:", order); // DEBUG
     return (
         <div className="border rounded-lg p-4 shadow-sm flex flex-col gap-2">
             <div className="flex justify-between">
                 <span className="text-sm font-semibold">Order #{order.id}</span>
-                <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-700">
+                <span className={`text-xs px-2 py-1 rounded-full ${
+                    order.status === 'Delivered' ? 'bg-green-100 text-green-700' :
+                        order.status === 'Shipped' ? 'bg-blue-100 text-blue-700' :
+                            'bg-yellow-100 text-yellow-700'
+                }`}>
           {order.status}
         </span>
             </div>
