@@ -22,6 +22,9 @@ import CartPage2 from "./pages/CartPage2.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
+import OrderDetail from "./components/Orders/OrderDetail.jsx";
+import OrdersPage from "./pages/OrdersPage.jsx";
+import {AuthProvider} from "./contexts/AuthContext.jsx";
 
 // Dummy home, about, contact pages for routing completeness
 function AboutPage() {
@@ -50,27 +53,31 @@ function App() {
             {/*        <Route path="/addProduct" element={<AddProduct/>}/>*/}
             {/*    </Routes>*/}
             {/*</Router>*/}
+            <AuthProvider>
+                <SearchProvider>
+                    <CartProvider>
 
-            <SearchProvider>
-                <CartProvider>
-                    <Router>
-                        <Header2/>
-                        <main>
-                            <Routes>
-                                <Route path="/" element={<HomePage/>}/>
-                                <Route path="/products" element={<ProductsPage/>}/>
-                                <Route path="/products/:id" element={<ProductDetailsPage/>}/>
-                                <Route path="/cart" element={<CartPage2/>}/>
-                                <Route path="/about" element={<AboutUs />} />
-                                <Route path="/contact" element={<ContactUs />} />
-                                {/* Add more pages as needed */}
-                            </Routes>
-                        </main>
-                        <Footer2/>
-                    </Router>
-                </CartProvider>
-            </SearchProvider>
+                        <Router>
+                            <Header2/>
+                            <main>
+                                <Routes>
+                                    <Route path="/" element={<HomePage/>}/>
+                                    <Route path="/products" element={<ProductsPage/>}/>
+                                    <Route path="/products/:id" element={<ProductDetailsPage/>}/>
+                                    <Route path="/cart" element={<CartPage2/>}/>
+                                    <Route path="/about" element={<AboutUs/>}/>
+                                    <Route path="/contact" element={<ContactUs/>}/>
+                                    <Route path="/orders" element={<OrdersPage/>}/>
+                                    <Route path="/orders/:id" element={<OrderDetail/>}/>
+                                    {/* Add more pages as needed */}
+                                </Routes>
+                            </main>
+                            <Footer2/>
+                        </Router>
 
+                    </CartProvider>
+                </SearchProvider>
+            </AuthProvider>
         </>
     );
 }

@@ -14,6 +14,7 @@ import {useSearch} from "../../contexts/SearchContext.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {useCart} from "../../contexts/CartContext.jsx";
 import CartDrawer from "../Cart/CartDrawer.jsx";
+import AccountDropdown from "../Accounts/AccountDropdown.jsx";
 
 const navLinks = [
     {name: "Home", href: "/"},
@@ -213,35 +214,7 @@ export default function Header2() {
             </span>
                             )}
                         </button>
-                        {/* Auth Buttons (auto switching based on login state) */}
-                        {isLoggedIn ? (
-                            <>
-                                <a
-                                    href="/account"
-                                    className="flex items-center space-x-2 text-[#6CA0A3] dark:text-[#7DD3FC] hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] font-semibold transition-colors duration-300"
-                                >
-                                    <UserIcon className="h-5 w-5"/>
-                                    <span>My Account</span>
-                                </a>
-                                <button
-                                    onClick={() => setIsLoggedIn(false)}
-                                    className="flex items-center space-x-2 text-[#6CA0A3] dark:text-[#7DD3FC] hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] font-semibold transition-colors duration-300"
-                                    aria-label="Logout"
-                                    type="button"
-                                >
-                                    <LogoutIcon className="h-5 w-5"/>
-                                    <span>Logout</span>
-                                </button>
-                            </>
-                        ) : (
-                            <a
-                                href="/signup"
-                                className="flex items-center space-x-2 bg-[#FFBC9A] dark:bg-[#FBBF24] text-[#4A4A4A] dark:text-[#1E293B] px-4 py-1.5 rounded-md font-semibold hover:bg-[#e6a98c] dark:hover:bg-[#d4a30f] transition-colors duration-300"
-                            >
-                                <UserIcon className="h-5 w-5"/>
-                                <span>Sign Up</span>
-                            </a>
-                        )}
+                        <AccountDropdown />
                     </div>
 
                     {/* Mobile menu, search and theme toggles */}
@@ -339,37 +312,7 @@ export default function Header2() {
                             <span>Cart</span>
                         </Link>
                         {/* Auth mobile */}
-                        {isLoggedIn ? (
-                            <>
-                                <a
-                                    href="/account"
-                                    className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
-                                    onClick={() => setMenuOpen(false)}
-                                >
-                                    <UserIcon className="h-6 w-6"/>
-                                    <span>My Account</span>
-                                </a>
-                                <button
-                                    onClick={() => {
-                                        setIsLoggedIn(false);
-                                        setMenuOpen(false);
-                                    }}
-                                    className="flex items-center space-x-2 hover:text-[#FFBC9A] dark:hover:text-[#FBBF24] transition-colors duration-300"
-                                >
-                                    <LogoutIcon className="h-6 w-6"/>
-                                    <span>Logout</span>
-                                </button>
-                            </>
-                        ) : (
-                            <a
-                                href="/signup"
-                                className="flex items-center space-x-2 bg-[#FFBC9A] dark:bg-[#FBBF24] text-[#4A4A4A] dark:text-[#1E293B] px-4 py-1.5 rounded-md hover:bg-[#e6a98c] dark:hover:bg-[#d4a30f] transition-colors duration-300"
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                <UserIcon className="h-6 w-6"/>
-                                <span>Sign Up</span>
-                            </a>
-                        )}
+                        <AccountDropdown />
                     </nav>
                 )}
             </header>
