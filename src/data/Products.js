@@ -102,6 +102,7 @@ const products = [
         sizes: [
             {label: 'M', available: true},
             {label: 'L', available: true},
+            {label: 'XL', available: true},
         ],
         isFavorite: true,
         inStock: true,
