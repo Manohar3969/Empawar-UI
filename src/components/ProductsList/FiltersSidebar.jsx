@@ -3,15 +3,15 @@ import React from "react";
 const categories = ["Men", "Women", "Kids", "Accessories"];
 const sizes = ["S", "M", "L", "XL", "XXL"];
 const colors = [
-    { name: "Red", value: "#FF0000" },
-    { name: "Blue", value: "#007AFF" },
-    { name: "Black", value: "#232323" },
-    { name: "Green", value: "#13B432" },
+    {name: "Red", value: "#FF0000"},
+    {name: "Blue", value: "#007AFF"},
+    {name: "Black", value: "#232323"},
+    {name: "Green", value: "#13B432"},
 ];
 
-export default function FiltersSidebar({ filters, onChange, onClear }) {
+export default function FiltersSidebar({filters, onChange, onClear}) {
     return (
-        <aside className="hidden w-64 px-4 py-8 bg-white dark:bg-[#1E293B] border-r border-gray-200">
+        <aside className="w-64 px-4 py-8 bg-white dark:bg-[#1E293B] border-r border-gray-200">
             {/* Categories */}
             <div className="mb-8">
                 <h3 className="font-semibold mb-2 text-[#6CA0A3]">Category</h3>
@@ -99,7 +99,7 @@ export default function FiltersSidebar({ filters, onChange, onClear }) {
                         <button
                             key={c.value}
                             className={`w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center ${filters.color.includes(c.value) ? "ring-2 ring-[#6CA0A3]" : ""}`}
-                            style={{ backgroundColor: c.value }}
+                            style={{backgroundColor: c.value}}
                             title={c.name}
                             onClick={() =>
                                 onChange(
