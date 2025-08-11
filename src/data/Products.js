@@ -46,7 +46,8 @@ const products = [
             {user: 'Aditi', rating: 5, text: 'Lovely fabric and fit!', date: '2025-07-01'},
             {user: 'Rahul', rating: 4, text: 'Good quality, decent price.', date: '2025-07-03'},
         ],
-        relatedProductIds: [2, 3]
+        relatedProductIds: [2, 3],
+        category: "Apparel",
     },
     {
         id: 2,
@@ -65,6 +66,7 @@ const products = [
         ],
         isFavorite: true,
         inStock: true,
+        category: "Apparel"
     },
     {
         id: 3,
@@ -87,6 +89,7 @@ const products = [
         ],
         isFavorite: false,
         inStock: true,
+        category: "Apparel"
     },
     {
         id: 4,
@@ -106,6 +109,7 @@ const products = [
         ],
         isFavorite: true,
         inStock: true,
+        category: "Apparel"
     },
     {
         id: 5,
@@ -128,6 +132,7 @@ const products = [
         ],
         isFavorite: false,
         inStock: true,
+        category: "Apparel"
     },
     {
         id: 6,
@@ -150,6 +155,7 @@ const products = [
         ],
         isFavorite: false,
         inStock: true,
+        category: "Apparel"
     }
     // Add more products as needed...
 ];
