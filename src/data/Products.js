@@ -53,13 +53,34 @@ const products = [
         id: 2,
         name: 'Classic Fit Shirt',
         image: 'https://campussutra.com/cdn/shop/products/Black-and-Brown-Pullover-Hoodie-With-Ribbed-Hem-1.webp?v=1699022953',
-        images: [],
+        images: [
+            'https://via.placeholder.com/400x500?text=Kurta+Front',
+            'https://via.placeholder.com/400x500?text=Kurta+Back'
+        ],
         price: 1199,
         originalPrice: null,
         badge: 'New',
         rating: 4.2,
         reviewCount: 80,
-        colors: ['#000000', '#FFFFFF'],
+        colors: [
+            {
+                name: 'Blue',
+                value: '#232323',
+                images: [
+                    'https://campussutra.com/cdn/shop/products/Black-and-Brown-Pullover-Hoodie-With-Ribbed-Hem-1.webp?v=1699022953',
+                    'https://m.media-amazon.com/images/I/71R0F7vxYxL._UY1000_.jpg',
+                    'https://m.media-amazon.com/images/I/81sU7E+BExL._AC_SL1500_.jpg'
+                ]
+            },
+            {
+                name: 'Peach',
+                value: '#FAD4C0',
+                images: [
+                    'https://m.media-amazon.com/images/I/716dnSqJnEL._UY1000_.jpg',
+                    'https://campussutra.com/cdn/shop/products/Black-and-Brown-Pullover-Hoodie-With-Ribbed-Hem-1.webp?v=1699022953'
+                ]
+            }
+        ],
         sizes: [
             {label: 'M', available: true},
             {label: 'L', available: true},
