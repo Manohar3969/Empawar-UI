@@ -1,53 +1,72 @@
 // src/pages/ProductDetailsPage.jsx
-import React, {useState} from 'react';
-import products from "../data/Products.js";
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+
+// Fetch products data
+import products from "../data/products.js"; // updated data file
+
+// Components
 import ImageCarousel from "../components/ProductDescription/ImageCarousel.jsx";
-
-
 import {HeartIcon, ShoppingCartIcon, ShareIcon, StarIcon} from '@heroicons/react/solid';
 import SizeSelector from "../components/ProductDescription/SizeSelector.jsx";
 import ColorPicker from "../components/ProductDescription/ColorPicker.jsx";
 import QuantitySelector from "../components/ProductDescription/QuantitySelector.jsx";
-import ReviewList from "../components/ProductDescription/ReviewList.jsx";
-import RecommendedProducts from "../components/ProductDescription/RecommendedProducts.jsx";
 import {useCart} from "../contexts/CartContext.jsx";
-import {Link, useNavigate} from 'react-router-dom';
+import ProductReviews from "../components/ProductsList/ProductReviews.jsx";
+import SimilarProducts from "../components/ProductsList/SimilarProducts.jsx";
+import RecommendedProducts from "../components/ProductDescription/RecommendedProducts.jsx";
 
-// Simulate getting product by ID (for demo, just use first one)
-const product = products[0];
+// New components
+// new implementation
 
 export default function ProductDetailsPage() {
-    const [selectedSize, setSelectedSize] = useState(product.sizes[0]?.label);
-    const [selectedColor, setSelectedColor] = useState(product.colors[0]?.value);
+    const {id} = useParams();
+    const [product, setProduct] = useState(null);
+
+    const [selectedSize, setSelectedSize] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
     const [quantity, setQuantity] = useState(1);
-    const [isFav, setIsFav] = useState(product.isFavorite);
+    const [isFav, setIsFav] = useState(false);
 
     const {addToCart} = useCart();
-    console.log("CartContext in ProductDetailsPage:", useCart());
 
-    // Get current images based on color selection (optional)
-    // Find the chosen color object
+    useEffect(() => {
+        // Simulate fetching product by id
+        const foundProduct = products.find(p => p.id === Number(id));
+        if (foundProduct) {
+            setProduct(foundProduct);
+            setSelectedSize(foundProduct.sizes[0]?.label);
+            setSelectedColor(foundProduct.colors[0]?.value);
+            setIsFav(foundProduct.isFavorite || false);
+        }
+    }, [id]);
+
+    if (!product) {
+        return (
+            <div className="max-w-7xl mx-auto p-6">
+                <p className="text-red-500 font-semibold">Product not found.</p>
+            </div>
+        );
+    }
+
+    // Handle images based on selected color
     const currentColorObj = product.colors.find(c => c.value === selectedColor);
-
-// Decide which images to pass to the carousel
     const images =
         currentColorObj && Array.isArray(currentColorObj.images) && currentColorObj.images.length > 0
             ? currentColorObj.images
             : product.images;
 
-
-    // Simulate recommended products by ID
+    // Simulate recommended/similar products
     const recommended = products.filter(p =>
         product.relatedProductIds?.includes(p.id)
     );
 
-    // assume product is from products.js, selected size/color state already in use
     const handleAddToCart = () => {
         addToCart({
-            product,                          // full data object for this product
-            quantity,                         // from QuantitySelector
-            selectedSize,                     // from SizeSelector
-            selectedColor,                    // from ColorPicker
+            product,
+            quantity,
+            selectedSize,
+            selectedColor,
         });
         console.log("Adding to cart:", {product, selectedSize, selectedColor, quantity});
     };
@@ -62,10 +81,12 @@ export default function ProductDetailsPage() {
                 <h1 className="text-2xl font-bold font-poppins mb-1 flex items-center">
                     {product.name}
                     {product.badge && (
-                        <span
-                            className="ml-3 px-2 py-1 rounded bg-[#6CA0A3] text-white text-xs uppercase">{product.badge}</span>
+                        <span className="ml-3 px-2 py-1 rounded bg-[#6CA0A3] text-white text-xs uppercase">
+              {product.badge}
+            </span>
                     )}
                 </h1>
+
                 <div className="flex items-center space-x-2 mb-1">
           <span className="text-[#6CA0A3] dark:text-[#7DD3FC] font-bold text-xl">
             ₹{product.price}
@@ -81,16 +102,23 @@ export default function ProductDetailsPage() {
             </span>
                     )}
                 </div>
+
                 <div className="flex items-center space-x-1 mb-2">
           <span className="text-yellow-400 font-bold">
-            {[...Array(5)].map((_, i) => <StarIcon key={i}
-                                                   className={`h-5 w-5 inline ${i < Math.round(product.rating) ? "" : "text-gray-300"}`}/>)}
+            {[...Array(5)].map((_, i) => (
+                <StarIcon
+                    key={i}
+                    className={`h-5 w-5 inline ${i < Math.round(product.rating) ? "" : "text-gray-300"}`}
+                />
+            ))}
           </span>
                     <span className="ml-2 text-sm text-gray-500 dark:text-gray-300">
             {product.rating} / 5 ({product.reviewCount} reviews)
           </span>
                 </div>
+
                 <div className="mb-4 text-base">{product.description}</div>
+
                 <div className="mb-3">
                     <span className="font-semibold">Size:</span>
                     <SizeSelector
@@ -99,6 +127,7 @@ export default function ProductDetailsPage() {
                         onSizeChange={setSelectedSize}
                     />
                 </div>
+
                 <div className="mb-3">
                     <span className="font-semibold">Color:</span>
                     <ColorPicker
@@ -107,10 +136,12 @@ export default function ProductDetailsPage() {
                         onColorChange={setSelectedColor}
                     />
                 </div>
+
                 <div className="mb-3">
                     <span className="font-semibold">Quantity:</span>
                     <QuantitySelector value={quantity} setValue={setQuantity} min={1} max={10}/>
                 </div>
+
                 <div className="flex items-center space-x-2 mb-4">
                     <button
                         className="flex items-center space-x-1 px-5 py-2 rounded bg-[#6CA0A3] hover:bg-[#7BB0B0] text-white font-semibold transition"
@@ -139,6 +170,7 @@ export default function ProductDetailsPage() {
                         <ShareIcon className="h-5 w-5 text-[#6CA0A3]"/>
                     </button>
                 </div>
+
                 <div className="mb-4">
                     {product.inStock ? (
                         <span className="text-green-600 font-semibold">In Stock</span>
@@ -146,15 +178,18 @@ export default function ProductDetailsPage() {
                         <span className="text-red-600 font-semibold">Out of Stock</span>
                     )}
                 </div>
+
                 <div className="mb-6">
-                    <span
-                        className="text-gray-500 text-sm">Estimated delivery in 3-5 days • Free shipping over ₹500</span>
+          <span className="text-gray-500 text-sm">
+            Estimated delivery in 3-5 days • Free shipping over ₹500
+          </span>
                 </div>
-                {/* Reviews */}
-                <ReviewList reviews={product.reviews}/>
+
+                {/* New Product Reviews Component */}
+                <ProductReviews productId={product.id}/>
             </div>
 
-            {/* Full width below: Recommended products carousel */}
+            {/* Full width below: New Similar Products */}
             <div className="md:col-span-2 mt-8">
                 <RecommendedProducts products={recommended}/>
             </div>
