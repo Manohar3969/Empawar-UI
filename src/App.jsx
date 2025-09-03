@@ -26,6 +26,7 @@ import OrderDetail from "./components/Orders/OrderDetail.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
 import {AuthProvider} from "./contexts/AuthContext.jsx";
 import OrderDetailPage from "./pages/OrderDetailPage.jsx";
+import AdminProductsPage from "./pages/AdminProductsPage.jsx";
 
 // Dummy home, about, contact pages for routing completeness
 function AboutPage() {
@@ -72,6 +73,7 @@ function App() {
                                     {/*<Route path="/orders/:id" element={<OrderDetail/>}/>*/}
                                     <Route path="/orders/:id" element={<OrderDetailPage/>}/>
                                     <Route path="/checkout" element={<CheckoutPage2/>}/>
+                                    <Route path="/admin/products/*" element={<AdminProductsPage />} />
                                     {/* Add more pages as needed */}
                                 </Routes>
                             </main>
